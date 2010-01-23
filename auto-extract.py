@@ -78,7 +78,7 @@ class Unrar(object):
 
     '''Attempts to find unrar on the system path and return the directory unrar is found in'''
     def find_unrar(self):
-        for dir in os.getenv('path').split(';'):
+        for dir in os.getenv('PATH').split(os.pathsep):
             # Ensure the dir in the path is a real directory
             if os.path.exists(dir):
                 files = os.listdir(dir)
