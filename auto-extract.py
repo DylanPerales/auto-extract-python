@@ -78,14 +78,17 @@ class Unrar(object):
 
     '''Attempts to find unrar on the system path and return the directory unrar is found in'''
     def find_unrar(self):
-	if sys.platform == 'win32':
-            win_unrar_dir = os.join(os.getenv('PROGRAMFILES'), 'unrar')
-	    if os.path.exists(win_unrar_dir):
+        # Search the default Unrar for Windows directory
+        if sys.platform == 'win32':
+            win_unrar_dir = os.path.join(os.getenv('PROGRAMFILES'), 'unrar')
+            if os.path.exists(win_unrar_dir):
                 files = os.listdir(win_unrar_dir)
                 if self.unrar_name in files:
                     # Found Unrar for Windows
-		    return win_unrar_dir
-
+                    print 'Found ' + self.unrar_name +' in ' + win_unrar_dir
+                    return win_unrar_dir
+        
+        # Search the system path for the unrar executable
         for dir in os.getenv('PATH').split(os.pathsep):
             # Ensure the dir in the path is a real directory
             if os.path.exists(dir):
@@ -97,6 +100,8 @@ class Unrar(object):
             else:
                 # The directory in the path does not exist
                 pass
+        
+        # unrar not found on this system
         return False
 
     '''Sanity check to make sure unrar is found on the system'''
@@ -119,7 +124,6 @@ class Unrar(object):
         # Search download directory and all subdirectories
         for dirname, dirnames, filenames in os.walk(self.download_dir):
             self.scan_for_archives(dirname)
-
 
     '''Check for rar files in each directory'''
     def scan_for_archives(self, dir):
