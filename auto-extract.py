@@ -25,7 +25,7 @@
 # -unrar in your path [Freeware command line version available from http://www.rarlab.com/]
 #
 # BUGS:
-#   -Cannot tell if a archive has been fully downloaded
+#   -Cannot tell if an archive has been fully downloaded
 #
 # TODO:
 #   -Proper logging (ie. debug, info messages)
@@ -38,7 +38,7 @@ import pdb
 
 class Unrar(object):
     def __init__(self):
-        # Global Variables
+        # Class Variables
         #------------------
         self.mark_file_name = '.unrared'
         self.extensions_unrar = ['.rar', '.r01']        # List of extensions for auto-extract to look for
@@ -152,8 +152,8 @@ class Unrar(object):
         # Create command line arguments for rar extractions
         cmd_args = ['','','','','']
         cmd_args[0] = self.unrar_name                   # unrar
-        cmd_args[1] = 'e'                            # command line switches: e - extract, y - yes to all queries 
-        cmd_args[2] = '-y'
+        cmd_args[1] = 'e'                               # command line switches: e - extract
+        cmd_args[2] = '-y'                              # y - assume yes to all queries (overwrite)
         cmd_args[3] = os.path.join(dir, archive_name)   # archive path
         cmd_args[4] = dir                               # destination
 
