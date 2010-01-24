@@ -1,8 +1,9 @@
+#!/usr/bin/env python
 # Script:   Auto-Extract (Python edition)
 # Author:   Mark Stahler <markstahler@gmail.com>
 # Website:  http://bitbucket.org/markstahler/auto-unrar-python/, http://www.markstahler.ca
-# Version:  1.00
-# Released: January 2010
+# Version:  1.02
+# Released: January 24 2010
 # License:  BSD
 #
 # Description:  Auto-Extract is a script designed to be run as a cron job (or scheduled task).
@@ -149,11 +150,12 @@ class Unrar(object):
     '''Extract a rar archive'''
     def start_unrar(self, dir, archive_name):
         # Create command line arguments for rar extractions
-        cmd_args = ['','','','']
+        cmd_args = ['','','','','']
         cmd_args[0] = self.unrar_name                   # unrar
-        cmd_args[1] = 'e'                               # command line switches: e - extract, u - update all files
-        cmd_args[2] = os.path.join(dir, archive_name)   # archive path
-        cmd_args[3] = dir                               # destination
+        cmd_args[1] = 'e'                            # command line switches: e - extract, y - yes to all queries 
+        cmd_args[2] = '-y'
+        cmd_args[3] = os.path.join(dir, archive_name)   # archive path
+        cmd_args[4] = dir                               # destination
 
         try:
             os.spawnv(os.P_WAIT, self.unrar_exe, cmd_args)
